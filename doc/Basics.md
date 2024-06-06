@@ -54,7 +54,14 @@ Let v ∈ N(u) be the vertex in the cone of u that faces d
 1. $Clean(u,t,N(u),d)$ 
 - returns True if (u, v) cross the chosen diagonal
 - returns False otherwise
+<br><br>
 
-2. $Sweep(u,t,N(u),d)$
+2. CASE Clean: $Greddy(u,t,N(u),d)$
 - Return the vertex v such that
-    * 
+    * edge (u, v) in the cone of u that contain t 
+<br><br>
+b
+3. CASE not Clean: $Sweep(u,t,N(u),d)$
+- Return the vertex v such that
+    * edge (u, v) in the cone of u facing $l_t^-$
+<br><br>
