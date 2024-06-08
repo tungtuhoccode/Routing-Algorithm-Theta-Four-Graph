@@ -29,7 +29,7 @@ void Point::setY(int y){
 }
 
 double Point::distanceTo(const Point& point){
-    return sqrt(pow(this->x - point.x, 2) + pow(this->y - point.y, 2));
+    return sqrt(pow(point.x - this->x, 2) + pow( point.y - this->y, 2));
 }
 
 string Point::print(){
