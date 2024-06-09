@@ -9,17 +9,17 @@ using namespace std;
 
 class Point{
     public: 
-        Point(); 
+        Point() = default; //by default, all point will be (0,0)
         Point(int x, int y); 
         Point(const Point& point); 
 
         string print();
-        int getX(); 
-        int getY(); 
+        int getX() const; 
+        int getY() const; 
         void setY(int y);
         void setX(int x);
 
-        double distanceTo(const Point& point);
+        double distanceTo(const Point& point) const;
 
     private: 
         int x; 

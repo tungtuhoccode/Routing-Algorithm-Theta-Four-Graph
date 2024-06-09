@@ -52,6 +52,7 @@ TEST (PointDistanceTo, AllPositive){
 TEST (PointDistanceTo, PositiveNegative){
     Point point1 = Point(10,1);
     Point point2 = Point(22, -11);
+
     ASSERT_NEAR(point1.distanceTo(point2), 16.97056, 0.01);
 }
 

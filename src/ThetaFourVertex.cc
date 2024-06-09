@@ -15,7 +15,7 @@ ThetaFourVertex::ThetaFourVertex(Point point){
 ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
     this->point = vertex.point;
     for(int i = 0; i < 4; i++){
-        this->neighbors[i] = make_tuple(point, this->point.distanceTo(point));
+        this->neighbors[i] = vertex.getNeighbor(i);
     }
 }
 
@@ -23,11 +23,15 @@ Point ThetaFourVertex::getPoint() const{
     return this->point;
 }
 
-tuple<Point, double> ThetaFourVertex::getNeighbor(int coneI) const{
+double ThetaFourVertex::distanceTo(const ThetaFourVertex& vertex) const{
+    return this->point.distanceTo(vertex.getPoint());
+}
+
+NeightborDistancePair ThetaFourVertex::getNeighbor(int coneI) const{
     return this->neighbors[coneI];
 }
 
 void ThetaFourVertex::setNeighbor(int coneI, Point point){
-    tuple<Point, double> neighbor = make_tuple(point, this->point.distanceTo(point));
+    NeightborDistancePair neighbor = make_pair(point, this->point.distanceTo(point));
     this->neighbors[coneI] = neighbor;
 }
