@@ -9,7 +9,7 @@ using namespace std;
 
 class Point{
     public: 
-        Point() = default; //by default, all point will be (0,0)
+        Point(); //by default, all point will be (0,0)
         Point(int x, int y); 
         Point(const Point& point); 
 

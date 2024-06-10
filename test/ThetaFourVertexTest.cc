@@ -1,106 +1,101 @@
 #include "../include/ThetaFourVertex.h"
 #include <gtest/gtest.h>
 
-// Constructor(int x, int y)
-TEST (ThetaFourVertexConstructor, CoordinateInputConstructor){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
+//equals(int x, int y)
+TEST(ThetaFourVertex, EqualsCheckCorrectly){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+    EXPECT_TRUE(vertex.equals(10,1));
 
-    EXPECT_EQ(vertex.getPoint().getX(), 10);
-    EXPECT_EQ(vertex.getPoint().getY(), 1);
+    EXPECT_FALSE(vertex.equals(5,1));
+    EXPECT_FALSE(vertex.equals(1,10));
+    EXPECT_FALSE(vertex.equals(10,5));
+    EXPECT_FALSE(vertex.equals(6,10));
 }
 
-// Constructor(Point point)
-TEST (ThetaFourVertexConstructor, PointInputConstructor){
-    Point point = Point(10,1);
-    ThetaFourVertex vertex = ThetaFourVertex(point);
-
-    EXPECT_EQ(vertex.getPoint().getX(), 10);
-    EXPECT_EQ(vertex.getPoint().getY(), 1);
+TEST(ThetaFourVertex, EqualsCheckUninitilized){
+    ThetaFourVertex vertex;
+    EXPECT_THROW (vertex.equals(1,5), std::logic_error); 
 }
 
-// Copy Constructor(const ThetaFourVertex& vertex)
-TEST (ThetaFourVertexConstructor, CopyConstructorNoNeighbor){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    ThetaFourVertex newVertex = ThetaFourVertex(vertex);
+// setNeighbor(int coneI, ThetaFourVertex* vertex)
+TEST(ThetaFourVertex, SetNeighborCorrectly){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+    ThetaFourVertex neightborVertex = ThetaFourVertex(30, 11);
+    vertex.setNeighbor(0, &neightborVertex);
 
-    EXPECT_EQ(newVertex.getPoint().getX(), 10);
-    EXPECT_EQ(newVertex.getPoint().getY(), 1);
+    EXPECT_EQ(vertex.getNeighbor(0), &neightborVertex);
+    EXPECT_EQ(vertex.getNeighbor(0)->getX(), neightborVertex.getX());
+    EXPECT_EQ(vertex.getNeighbor(0)->getY(), neightborVertex.getY());
 }
 
-TEST (ThetaFourVertexConstructor, CopyConstructorWithNeighbor){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    vertex.setNeighbor(1, Point(20, 1));
-    ThetaFourVertex newVertex = ThetaFourVertex(vertex);
+TEST(ThetaFourVertex, SetNeighborOutOfBound){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+    ThetaFourVertex neightborVertex = ThetaFourVertex(30, 11);
 
-    EXPECT_EQ(newVertex.getPoint().getX(), 10);
-    EXPECT_EQ(newVertex.getPoint().getY(), 1);
-    // EXPECT_EQ(newVertex.getNeighbor(1).getX(), 20);
-    // EXPECT_EQ(newVertex.getNeighbor(1).getY(), 1);
+    EXPECT_THROW(vertex.setNeighbor(4, &neightborVertex), std::invalid_argument);
+    EXPECT_THROW(vertex.setNeighbor(-1, &neightborVertex), std::invalid_argument);
+
 }
 
-// getPoint() functions
-TEST (ThetaFourVertexGetPoint, GetPointCorrectly){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
+// getNeightbor()
+TEST(ThetaFourVertex, GetNeightborInvalidIndex){
+    ThetaFourVertex vertex = ThetaFourVertex();
+
+    EXPECT_THROW(vertex.getNeighbor(-1), std::invalid_argument);
+    EXPECT_THROW(vertex.getNeighbor(4), std::invalid_argument);
+}
+
+// Default Constructor
+TEST(ThetaFourVertex, DefaultConstructor){
+    ThetaFourVertex vertex = ThetaFourVertex();
+
+    EXPECT_FALSE(vertex.getX().has_value());
+    EXPECT_FALSE(vertex.getY().has_value());
+
+    EXPECT_EQ( vertex.getNeighbor(0), nullptr );
+}
+
+// ThetaFourVertex(int x, int y)
+TEST(ThetaFourVertex, IntegerCoordinateConstructor){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+
+    EXPECT_TRUE(vertex.getX().has_value() == true);
+    EXPECT_TRUE(vertex.getY().has_value() == true);
     
-    EXPECT_EQ(vertex.getPoint().getX(), 10);
-    EXPECT_EQ(vertex.getPoint().getY(), 1);
+    EXPECT_TRUE(vertex.getX() == 10);
+    EXPECT_TRUE(vertex.getY() == 1);
+
+    EXPECT_TRUE( vertex.getNeighbor(0) == nullptr);
 }
 
-// getNeighbor() functions
-TEST (ThetaFourVertexgetNeighbor, getNeighborCorrectly){
-    //Arrange
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    ThetaFourVertex newVertex = ThetaFourVertex(Point(22,-11));
-    
-    //Act
-    vertex.setNeighbor(1, newVertex.getPoint());
+// Copy constructor
+TEST(ThetaFourVertex, CopyConstructorNoNeighbor){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+    ThetaFourVertex copiedVertex = ThetaFourVertex(vertex);
 
-    double distance = vertex.getPoint().distanceTo(newVertex.getPoint());
+    EXPECT_TRUE(copiedVertex.getX() == vertex.getX());
+    EXPECT_TRUE(copiedVertex.getY() == vertex.getY());
 
-    Point neighborPoint = vertex.getNeighbor(1).first;
+    EXPECT_TRUE(copiedVertex.getX().has_value() == true);
+    EXPECT_TRUE(copiedVertex.getY().has_value() == true);
 
-    //Assert
-    EXPECT_EQ(vertex.getNeighbor(1).first.getX(), 22);
-    EXPECT_EQ(vertex.getNeighbor(1).first.getY(), -11);
-
-    EXPECT_DOUBLE_EQ(vertex.getNeighbor(1).second, distance);
+    EXPECT_TRUE( copiedVertex.getNeighbor(0) == vertex.getNeighbor(1));
 }
 
-// ThetaFourVertex::distanceTo() functions
-TEST (ThetaFourVertexDistanceTo, AllPositive){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    ThetaFourVertex newVertex = ThetaFourVertex(Point(20,1));
+TEST(ThetaFourVertex, CopyConstructorWithNeighbor){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+    ThetaFourVertex neightborVertex = ThetaFourVertex(30, 11);
+    vertex.setNeighbor(0, &neightborVertex);
 
-    ASSERT_EQ(vertex.distanceTo(newVertex), 10);
-}
+    EXPECT_EQ(vertex.getNeighbor(0), &neightborVertex);
 
-TEST (ThetaFourVertexDistanceTo, PositiveNegative){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    ThetaFourVertex newVertex = ThetaFourVertex(Point(22,-11));
+    ThetaFourVertex copiedVertex = ThetaFourVertex(vertex);
 
-    ASSERT_NEAR(vertex.distanceTo(newVertex), 16.97056, 0.01);
-}
+    EXPECT_TRUE(copiedVertex.getNeighbor(0) == &neightborVertex);
+    EXPECT_TRUE(copiedVertex.getNeighbor(0)->getX() == neightborVertex.getX());
+    EXPECT_TRUE(copiedVertex.getNeighbor(0)->getY() == neightborVertex.getY());
 
-TEST (ThetaFourVertexDistanceTo, AllNegative){
-    ThetaFourVertex vertex = ThetaFourVertex(-10,-1);
-    ThetaFourVertex newVertex = ThetaFourVertex(Point(-21, -11));
-
-    ASSERT_NEAR(vertex.distanceTo(newVertex), 14.8660, 0.01);
-}
-
-// setNeighbor() functions
-TEST (ThetaFourVertexsetNeighbor, setNeighborCorrectly){
-    ThetaFourVertex vertex = ThetaFourVertex(10,1);
-    ThetaFourVertex newVertex = ThetaFourVertex(Point(20,1));
-
-    vertex.setNeighbor(1, newVertex.getPoint());
-
-    Point neighborPoint = vertex.getNeighbor(1).first;
-   
-    double distance = vertex.distanceTo(newVertex);
-
-    EXPECT_EQ(neighborPoint.getX(), 20);
-    EXPECT_EQ(neighborPoint.getY(), 1);
-
-    EXPECT_DOUBLE_EQ(vertex.getNeighbor(1).second, distance);
+    EXPECT_TRUE(copiedVertex.getNeighbor(1) == vertex.getNeighbor(1));
+    EXPECT_TRUE(copiedVertex.getNeighbor(2) == vertex.getNeighbor(2));
+    EXPECT_TRUE(copiedVertex.getNeighbor(3) == vertex.getNeighbor(3));
 }

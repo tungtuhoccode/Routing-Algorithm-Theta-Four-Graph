@@ -6,33 +6,31 @@
 #include <vector>
 #include <cmath>
 #include <array>
-
-#include "Point.h"
+#include <string>
 
 
 using namespace std;
-typedef pair<Point, double> NeightborDistancePair;
-// Suggestion change: pair<ThetaFourVertex*, double> NeightborDistancePair;
+#define MAX_NEIGHBORS 4
 
 class ThetaFourVertex{
     public: 
         ThetaFourVertex(); 
-        ThetaFourVertex(int x, int y); //suggestion change to class: Change the constructors to make sure that it uses pointer
-        ThetaFourVertex(Point point); 
-        ThetaFourVertex(const ThetaFourVertex& vertex); 
+        ThetaFourVertex(int x, int y); 
+        ThetaFourVertex(ThetaFourVertex& vertex); 
 
-        Point  getPoint() const;   
-        //suggestion change to class: int getX()
-        //suggestion change to class: int getY()
-        //suggestion change to class: NeightborDistancePair
+        optional<int> getX();
+        optional<int> getY();
+        bool equals(int x, int y);
         
-        double distanceTo(const ThetaFourVertex& vertex) const;
-        NeightborDistancePair  getNeighbor(int coneI) const;
-        void   setNeighbor(int coneI, Point point);
-    
+
+        // double distanceTo(const ThetaFourVertex& vertex) const;
+        ThetaFourVertex* getNeighbor(int coneI);
+        bool   setNeighbor(int coneI, ThetaFourVertex* vertex);
+
     private: 
-        Point point;
-        array<NeightborDistancePair, 4> neighbors; 
+        optional<int> x; 
+        optional<int> y; 
+        ThetaFourVertex* neighbors[4];
 };
 
 #endif

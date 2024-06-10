@@ -6,5 +6,24 @@
 // 2. Compute the value of each vertex for each cone 
 // 3. Select the 1 vertex that has the max/min value for each cone to be the neightbor of u 
 
+#ifndef DIRECTED_THETA_FOUR_GRAPH_H
+#define DIRECTED_THETA_FOUR_GRAPH_H
 #include <iostream>
 #include <algorithm>
+
+using namespace std; 
+
+#include "ThetaFourVertex.h"
+
+class DirectedThetaFourGraph{
+    public:
+        DirectedThetaFourGraph(vector<ThetaFourVertex> vertices); 
+
+        bool setNeighborFor(ThetaFourVertex* vertex); //use this to set all four neightbors of a cone
+        ThetaFourVertex* getVertex(int x, int y);
+
+    private: 
+        vector<ThetaFourVertex> vertices;
+};
+
+#endif
