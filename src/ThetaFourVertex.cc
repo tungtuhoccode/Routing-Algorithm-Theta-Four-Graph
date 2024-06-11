@@ -15,12 +15,12 @@ ThetaFourVertex::ThetaFourVertex(int x, int y){
     }
 }
 
-ThetaFourVertex::ThetaFourVertex(ThetaFourVertex& vertex){
-    this->x = vertex.getX();
-    this->y = vertex.getY();
+ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
+    this->x = vertex.x;
+    this->y = vertex.y;
 
     for(int i = 0; i < MAX_NEIGHBORS; i++){
-        this->neighbors[i] = vertex.getNeighbor(i);
+        this->neighbors[i] = vertex.neighbors[i];
     }
 }
 
@@ -46,6 +46,9 @@ ThetaFourVertex* ThetaFourVertex::getNeighbor(int coneI){
     return neighbors[coneI];
 }
 
+double ThetaFourVertex::distanceTo(ThetaFourVertex& vertex){
+    return sqrt(pow(vertex.x.value() - this->x.value(), 2) + pow( vertex.y.value() - this->y.value(), 2));
+}
 bool ThetaFourVertex::setNeighbor(int coneI, ThetaFourVertex* vertex){
     if(coneI < 0 || coneI >= MAX_NEIGHBORS){
         throw std::invalid_argument( "Arguments must be in range 0 to 3" );
@@ -54,4 +57,9 @@ bool ThetaFourVertex::setNeighbor(int coneI, ThetaFourVertex* vertex){
 
     this->neighbors[coneI] = vertex;
     return true;
+}
+
+string ThetaFourVertex::print(){
+    if (!(this->x.has_value()) || !(this->y.has_value())) throw std::logic_error("vertex is not set");
+    return  "(" + to_string(this->x.value()) + ", " + to_string(this->y.value()) + ")";
 }

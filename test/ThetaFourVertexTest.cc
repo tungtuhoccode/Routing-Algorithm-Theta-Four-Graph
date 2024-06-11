@@ -34,7 +34,6 @@ TEST(ThetaFourVertex, SetNeighborOutOfBound){
 
     EXPECT_THROW(vertex.setNeighbor(4, &neightborVertex), std::invalid_argument);
     EXPECT_THROW(vertex.setNeighbor(-1, &neightborVertex), std::invalid_argument);
-
 }
 
 // getNeightbor()

@@ -1,5 +1,5 @@
-objects = build/point.o build/thetaFourVertex.o
-testerObjects = ./build/tester.o build/pointTest.o build/thetaFourVertexTest.o
+objects = build/point.o build/thetaFourVertex.o build/directedThetaFourGraph.o
+testerObjects = ./build/tester.o build/pointTest.o build/thetaFourVertexTest.o build/directedThetaFourGraphTest.o
 
 compiler = g++ -std=c++15
 
@@ -31,6 +31,9 @@ build/point.o: ${SourceDir}/Point.cc ${IncludeDir}/point.h
 build/thetaFourVertex.o: ${SourceDir}/ThetaFourVertex.cc ${IncludeDir}/thetaFourVertex.h
 	${compiler} -c ${SourceDir}/ThetaFourVertex.cc -o build/thetaFourVertex.o
 
+build/directedThetaFourGraph.o: ${SourceDir}/DirectedThetaFourGraph.cc ${IncludeDir}/DirectedThetaFourGraph.h
+	${compiler} -c ${SourceDir}/DirectedThetaFourGraph.cc -o build/directedThetaFourGraph.o
+
 build/main.o: ${SourceDir}/main.cc
 	${compiler} -c ${SourceDir}/main.cc -o build/Main.o
 
@@ -43,6 +46,9 @@ build/pointTest.o: ${TestDir}/PointTest.cc
 
 build/thetaFourVertexTest.o: ${TestDir}/ThetaFourVertexTest.cc
 	${compiler} -c ${TestDir}/ThetaFourVertexTest.cc -o build/thetaFourVertexTest.o
+
+build/directedThetaFourGraphTest.o: ${TestDir}/DirectedThetaFourGraphTest.cc ${IncludeDir}/DirectedThetaFourGraph.h
+	${compiler} -c ${TestDir}/DirectedThetaFourGraphTest.cc -o build/directedThetaFourGraphTest.o
 
 clean:
 	cd bin; rm -f main *.o; cd ../build; rm -f *.o; cd ../bin; rm -f test;

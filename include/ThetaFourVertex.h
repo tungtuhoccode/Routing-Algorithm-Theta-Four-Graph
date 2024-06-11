@@ -16,12 +16,13 @@ class ThetaFourVertex{
     public: 
         ThetaFourVertex(); 
         ThetaFourVertex(int x, int y); 
-        ThetaFourVertex(ThetaFourVertex& vertex); 
+        ThetaFourVertex(const ThetaFourVertex& vertex); 
 
         optional<int> getX();
         optional<int> getY();
         bool equals(int x, int y);
-        
+        string print();
+        double distanceTo(ThetaFourVertex& vertex);
 
         // double distanceTo(const ThetaFourVertex& vertex) const;
         ThetaFourVertex* getNeighbor(int coneI);
