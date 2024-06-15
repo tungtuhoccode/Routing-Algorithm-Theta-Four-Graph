@@ -61,5 +61,5 @@ bool ThetaFourVertex::setNeighbor(int coneI, ThetaFourVertex* vertex){
 
 string ThetaFourVertex::print(){
     if (!(this->x.has_value()) || !(this->y.has_value())) throw std::logic_error("vertex is not set");
-    return  "(" + to_string(this->x.value()) + ", " + to_string(this->y.value()) + ")";
+    return  "(" + to_string(this->x.value()) + "," + to_string(this->y.value()) + ")";
 }

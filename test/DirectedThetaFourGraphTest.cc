@@ -136,7 +136,7 @@ TEST(DirectedThetaFourGraphTest, SetComplexNeighborCorrectly) {
 }
 
 //graph constructor
-TEST (DirectedThetaFourGraph, GraphConstructorRunCorrectly){
+TEST (DirectedThetaFourGraph, GraphConstructorAllPositiveVertices){
     //initilization of vertices list
     vector<ThetaFourVertex> vertices;
     int verticesXY[10][2] = {
@@ -186,8 +186,41 @@ TEST (DirectedThetaFourGraph, GraphConstructorRunCorrectly){
     EXPECT_TRUE(graph.getVertex(5,9)->getNeighbor(2) == NULL);
     EXPECT_TRUE(graph.getVertex(5,9)->getNeighbor(3)->equals(4,7) );
     
+}
 
+TEST(DirectedThetaFourGraphTest, GraphConstructorWithNegativeVertices) {
+    // Initialize the list of vertices
+    vector<ThetaFourVertex> vertices;
 
+    // Array of vertices coordinates with both negative and positive values
+    int verticesXY[10][2] = {
+        {1, 3},
+        {-4, 7},
+        {8, -2},
+        {3, 6},
+        {-7, 1},
+        {2, -8},
+        {-5, 9},
+        {9, -5},
+        {6, 4},
+        {-10, 11}
+    };
 
+    // Create ThetaFourVertex objects for each coordinate pair and add to vertices vector
+    for (int i = 0; i < 10; ++i) {
+        vertices.push_back(ThetaFourVertex(verticesXY[i][0], verticesXY[i][1]));
+    }
 
+    // Construct graph using the list of vertices
+    DirectedThetaFourGraph graph = DirectedThetaFourGraph(vertices);
+
+    EXPECT_TRUE(graph.getVertex(-4, 7)->getNeighbor(0)->equals(3,6));
+    EXPECT_TRUE(graph.getVertex(-4, 7)->getNeighbor(1) == NULL);
+    EXPECT_TRUE(graph.getVertex(-4, 7)->getNeighbor(2)->equals(-5,9));
+    EXPECT_TRUE(graph.getVertex(-4, 7)->getNeighbor(3)->equals(-7,1));
+
+    EXPECT_TRUE(graph.getVertex(1, 3)->getNeighbor(0)->equals(8,-2));
+    EXPECT_TRUE(graph.getVertex(1, 3)->getNeighbor(1)->equals(3,6));
+    EXPECT_TRUE(graph.getVertex(1, 3)->getNeighbor(2)->equals(-4,7));
+    EXPECT_TRUE(graph.getVertex(1, 3)->getNeighbor(3)->equals(-7,1));
 }

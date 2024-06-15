@@ -43,3 +43,17 @@ NOTE: (8,2) is chosen for being the closest one to 6,4.
 
 ## Test case 3 - Neighbor Test for p(4,7): 
 `setNeighborFor(v1)` should set neighbor vertices to `[(6,4), (5,9), (2,8), (3,6)]`
+
+
+Sure, here are the vertices with both negative and positive values formatted as requested:
+
+(1, 3)
+(-4, 7)
+(8, -2)
+(3, 6)
+(-7, 1)
+(2, -8)
+(-5, 9)
+(9, -5)
+(6, 4)
+(-10, 11)
