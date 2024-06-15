@@ -72,17 +72,17 @@ compiler = g++ -std=gnu++17
 # Source and Test Files
 src_files := $(wildcard $(SourceDir)/*.cc)
 test_files := $(wildcard $(TestDir)/*.cc)
-objects := $(patsubst $(SourceDir)/%.cc, $(BuildDir)/%.o, $(src_files))
+objects := $(filter-out $(BuildDir)/main.o, $(patsubst $(SourceDir)/%.cc, $(BuildDir)/%.o, $(src_files)))
 testerObjects := $(patsubst $(TestDir)/%.cc, $(BuildDir)/%.o, $(test_files))
 
 # Targets
 all: test
 
-main: $(objects)
-	$(compiler) -o $(BinDir)/main $(objects)
+main: $(objects) $(BuildDir)/main.o
+	$(compiler) -o $(BinDir)/main $(objects) $(BuildDir)/main.o
 
-test: $(objects) $(testerObjects)
-	$(compiler) -o $(BinDir)/test $(objects) $(testerObjects) -lgtest -lgtest_main
+test: $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects))
+	$(compiler) -o $(BinDir)/test $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects)) -lgtest -lgtest_main
 
 runMain: main
 	./bin/main
