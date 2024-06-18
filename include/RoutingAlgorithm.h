@@ -6,12 +6,14 @@
 class RoutingAlgorithm{
     public: 
         //Algorithm
-        string bruteForce(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
         string greedyRoutingOnly(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
+        string GreedySweepRouting(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
         
-        //
-        bool clean(ThetaFourVertex *u, ThetaFourVertex *t, DirectedThetaFourGraph& graph, byte d);
-        ThetaFourVertex* greedy(ThetaFourVertex *u, ThetaFourVertex *t, DirectedThetaFourGraph& graph, byte d);
+        int getClosestDiagonal(ThetaFourVertex* start, ThetaFourVertex* target, DirectedThetaFourGraph& graph);
+
+        bool isClean(ThetaFourVertex *u, ThetaFourVertex *t, DirectedThetaFourGraph& graph, int d);
+        ThetaFourVertex* greedy(ThetaFourVertex *u, ThetaFourVertex *t, DirectedThetaFourGraph& graph, int d);
+        ThetaFourVertex* sweep(ThetaFourVertex *u, ThetaFourVertex *t, DirectedThetaFourGraph& graph, int d);
 
 };
 
