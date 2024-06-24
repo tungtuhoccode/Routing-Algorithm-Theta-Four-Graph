@@ -8,6 +8,8 @@ class RoutingAlgorithm{
         //Algorithm
         string greedyRoutingOnly(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
         string GreedySweepRouting(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
+
+        vector<ThetaFourVertex> greedyRoutingOnlyReturnPath(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph);
         
         int getClosestDiagonal(ThetaFourVertex* start, ThetaFourVertex* target, DirectedThetaFourGraph& graph);
 

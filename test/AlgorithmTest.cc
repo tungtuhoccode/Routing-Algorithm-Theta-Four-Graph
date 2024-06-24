@@ -215,3 +215,44 @@ TEST (GreedySweepRouting, PositiveAndNegative){
     cout << algo.GreedySweepRouting(-10, 11, 6, 4, graph) << endl;
     cout << algo.GreedySweepRouting(-10, 11, 12, -2, graph) << endl;
 }
+
+TEST (RoutingOnlyReturnPath, PositiveAndNegative){
+    // Initialize the list of vertices
+    vector<ThetaFourVertex> vertices;
+
+    // Array of vertices coordinates with both negative and positive values
+    int verticesXY[10][2] = {
+        {1, 3},
+        {-4, 7},
+        {12, -2},
+        {3, 6},
+        {-7, 1},
+        {2, -10},
+        {-5, 10},
+        {8, -6},
+        {6, 4},
+        {-10, 11}
+    };
+
+    // Create ThetaFourVertex objects for each coordinate pair and add to vertices vector
+    for (int i = 0; i < 10; ++i) {
+        vertices.push_back(ThetaFourVertex(verticesXY[i][0], verticesXY[i][1]));
+    }
+
+    // Construct graph using the list of vertices
+    DirectedThetaFourGraph graph = DirectedThetaFourGraph(vertices);
+
+    RoutingAlgorithm algo;
+    vector<ThetaFourVertex> greedyOnlyPath = algo.greedyRoutingOnlyReturnPath(-10, 11, 6, 4, graph);
+    string strPath = "";
+    double pathLength = 0;
+
+    strPath += greedyOnlyPath[0].print();
+
+    for (int i = 1; i < greedyOnlyPath.size(); i++){
+        strPath += greedyOnlyPath[i].print();
+        pathLength += greedyOnlyPath[i].distanceTo(greedyOnlyPath[i-1]);
+    }
+    cout << "Path: " << strPath << endl;
+    cout << "Path length: " << pathLength << endl;
+}

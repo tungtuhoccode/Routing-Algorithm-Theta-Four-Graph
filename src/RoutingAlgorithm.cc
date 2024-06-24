@@ -7,7 +7,6 @@ string RoutingAlgorithm::greedyRoutingOnly(int xu, int yu, int xt, int yt, Direc
     string path = "";
     ThetaFourVertex *currentVertex = graph.getVertex(xu, yu);
     ThetaFourVertex *targetVertex = graph.getVertex(xt, yt);
-
     
     while (true){
         path += currentVertex->print(); 
@@ -19,6 +18,25 @@ string RoutingAlgorithm::greedyRoutingOnly(int xu, int yu, int xt, int yt, Direc
 
     return path;
 }
+
+ vector<ThetaFourVertex> RoutingAlgorithm::greedyRoutingOnlyReturnPath(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph){
+    vector<ThetaFourVertex> path;
+
+    if(graph.getVertex(xu,yu) == NULL || graph.getVertex(xt,yt) == NULL ) throw std::logic_error("vertex does not exists");
+    
+    ThetaFourVertex *currentVertex = graph.getVertex(xu, yu);
+    ThetaFourVertex *targetVertex = graph.getVertex(xt, yt);
+    
+    while (true){
+        path.push_back(*currentVertex); 
+        
+        if(currentVertex->equals(xt,yt)) break;
+
+        currentVertex = greedy(currentVertex, targetVertex, graph, 1); //diagonal does not matter here
+    }
+
+    return path;
+ }
 
 string RoutingAlgorithm::GreedySweepRouting(int xu, int yu, int xt, int yt, DirectedThetaFourGraph& graph){
     if(graph.getVertex(xu,yu) == NULL || graph.getVertex(xt,yt) == NULL ) return "Invalid input!";
