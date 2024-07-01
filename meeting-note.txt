@@ -8,5 +8,4 @@ Not done:
 - Constructing graph takes long (because of finding neighbors) 
     + O(n^2) 
     + When running, it takes 16s for 10000 vertices
-- The Algorithm has been tested only with small vertices set, bigger set will be tested
 - May be some data visualization using D3.js
