@@ -15,7 +15,7 @@ TO DO in the near future:
 4. Create firgues to show the behavior of the algorithm
 
 Some important metrics regarding path length: 
-1. How many times the eucledean distance
+1. How many times the eucledean distance 
 2. How many edges
 3. Compare to the shortest path
 4. Run all pairs of vertices

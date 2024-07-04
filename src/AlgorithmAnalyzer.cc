@@ -54,3 +54,15 @@ vector<ThetaFourVertex> AlgorithmAnalyzer::generateListOfVertices(int numbVertic
 
     return vertices;
 }
+
+
+
+double AlgorithmAnalyzer::getPathLength(vector<ThetaFourVertex>& path){
+    double distance = 0;
+
+    for (int i = 1; i < path.size(); i++){
+        distance += path[i].distanceTo(path[i-1]);
+    }
+
+    return distance;
+}
