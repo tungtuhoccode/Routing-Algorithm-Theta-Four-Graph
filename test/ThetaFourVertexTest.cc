@@ -37,6 +37,19 @@ TEST(ThetaFourVertex, CorrectID){
     EXPECT_EQ(vertex5.getId(), 5);
 }
 
+TEST(ThetaFourVertex, CopyConstructorCorrectID){
+    ThetaFourVertex::resetID();
+
+    ThetaFourVertex vertex0 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex1 = ThetaFourVertex(vertex0);
+
+
+
+    EXPECT_EQ(vertex0.getId(), vertex1.getId());
+
+
+}
+
 
 // setNeighbor(int coneI, ThetaFourVertex* vertex)
 TEST(ThetaFourVertex, SetNeighborCorrectly){
@@ -127,7 +140,7 @@ TEST(ThetaFourVertex, CopyConstructorWithNeighbor1){
     EXPECT_TRUE(copiedVertex.getNeighbor(3) == vertex.getNeighbor(3));
 }
 
-TEST(ThetaFourVertex, DijkstraAlgorithmTest){
+TEST(ThetaFourVertex, DijkstraAlgorithmInitialTest){
        // Initialize the list of vertices
     vector<ThetaFourVertex> vertices;
 
@@ -155,5 +168,5 @@ TEST(ThetaFourVertex, DijkstraAlgorithmTest){
 
     DijkstraAlgorithm shortestAlgo; 
 
-    shortestAlgo.shortestPath(1,1,1,1, graph);
+    cout << shortestAlgo.shortestPath(9,-5,-10,11, graph) << endl;
 }

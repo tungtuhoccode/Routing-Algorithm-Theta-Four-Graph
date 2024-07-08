@@ -14,8 +14,8 @@ ThetaFourVertex::ThetaFourVertex(){
 ThetaFourVertex::ThetaFourVertex(int x, int y){
     this->x = x;
     this->y = y;
-    id = currentID;
 
+    id = currentID;
     currentID++;
 
     for(int i = 0; i < MAX_NEIGHBORS; i++){
@@ -27,8 +27,7 @@ ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
     this->x = vertex.x;
     this->y = vertex.y;
 
-    id = currentID;
-    currentID++;
+    id = vertex.id;
 
     for(int i = 0; i < MAX_NEIGHBORS; i++){
         this->neighbors[i] = vertex.neighbors[i];

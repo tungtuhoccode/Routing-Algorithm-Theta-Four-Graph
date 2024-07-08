@@ -68,6 +68,7 @@
         "unordered_set": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "functional": "cpp"
     }
 }
