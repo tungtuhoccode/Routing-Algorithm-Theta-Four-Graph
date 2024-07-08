@@ -15,7 +15,7 @@ class DirectedThetaFourGraph{
         ThetaFourVertex* getVertex(int x, int y);
         int getCone(ThetaFourVertex& absoluteVertex, ThetaFourVertex& relativeVertex) const;
         bool isCloser(int coneI, ThetaFourVertex& absoluteVertex, ThetaFourVertex& relativeVertex);
-        
+        vector<ThetaFourVertex> getAllVertices();
 
     private: 
         vector<ThetaFourVertex> vertices;

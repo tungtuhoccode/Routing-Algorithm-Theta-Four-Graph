@@ -1,6 +1,11 @@
 #include "../include/ThetaFourVertex.h"
 
+int ThetaFourVertex::currentID = 0;
+
+
 ThetaFourVertex::ThetaFourVertex(){
+    id = currentID;
+    currentID++;
     for(int i = 0; i < MAX_NEIGHBORS; i++){
         neighbors[i] = NULL;
     }
@@ -9,6 +14,9 @@ ThetaFourVertex::ThetaFourVertex(){
 ThetaFourVertex::ThetaFourVertex(int x, int y){
     this->x = x;
     this->y = y;
+    id = currentID;
+
+    currentID++;
 
     for(int i = 0; i < MAX_NEIGHBORS; i++){
         neighbors[i] = NULL;
@@ -19,9 +27,20 @@ ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
     this->x = vertex.x;
     this->y = vertex.y;
 
+    id = currentID;
+    currentID++;
+
     for(int i = 0; i < MAX_NEIGHBORS; i++){
         this->neighbors[i] = vertex.neighbors[i];
     }
+}
+
+void ThetaFourVertex::resetID(){
+    currentID = 0;
+}
+
+int ThetaFourVertex::getId(){
+    return this->id;
 }
 
 optional<int> ThetaFourVertex::getX(){
@@ -31,6 +50,15 @@ optional<int> ThetaFourVertex::getX(){
 optional<int> ThetaFourVertex::getY(){
     return this->y;
 }
+
+int ThetaFourVertex::getIntX(){
+    return this->x.value();
+}
+
+int ThetaFourVertex::getIntY(){
+    return this->y.value();
+}
+
 
 bool ThetaFourVertex::equals(int x, int y ){
     if (!(this->x.has_value()) || !(this->y.has_value())) throw std::logic_error("vertex is not set");

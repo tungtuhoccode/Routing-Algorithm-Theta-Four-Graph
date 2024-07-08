@@ -2,7 +2,6 @@
 #include <ctime>
 
 DirectedThetaFourGraph::DirectedThetaFourGraph(vector<ThetaFourVertex> verticesInput){
-
     //add vertices
     for (int i=0; i < verticesInput.size(); ++i){
         vertices.push_back(verticesInput[i]);
@@ -16,7 +15,10 @@ DirectedThetaFourGraph::DirectedThetaFourGraph(vector<ThetaFourVertex> verticesI
     }
     time(&finish);
     cout << "Time taken for add edges theta four graph = " << difftime(finish, start) << " seconds" << endl;
+}
 
+vector<ThetaFourVertex> DirectedThetaFourGraph::getAllVertices(){
+    return vertices;
 }
 
 ThetaFourVertex* DirectedThetaFourGraph::getVertex(int x, int y){

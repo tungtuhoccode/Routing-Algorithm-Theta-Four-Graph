@@ -1,4 +1,6 @@
 #include "../include/ThetaFourVertex.h"
+#include "../include/DijkstraAlgorithm.h"
+
 #include <gtest/gtest.h>
 
 //equals(int x, int y)
@@ -16,6 +18,25 @@ TEST(ThetaFourVertex, EqualsCheckUninitilized){
     ThetaFourVertex vertex;
     EXPECT_THROW (vertex.equals(1,5), std::logic_error); 
 }
+
+TEST(ThetaFourVertex, CorrectID){
+    ThetaFourVertex::resetID();
+
+    ThetaFourVertex vertex0 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex1 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex2 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex3 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex4 = ThetaFourVertex(10, 1);
+    ThetaFourVertex vertex5 = ThetaFourVertex(10, 1);
+
+    EXPECT_EQ(vertex0.getId(), 0);
+    EXPECT_EQ(vertex1.getId(), 1);
+    EXPECT_EQ(vertex2.getId(), 2);
+    EXPECT_EQ(vertex3.getId(), 3);
+    EXPECT_EQ(vertex4.getId(), 4);
+    EXPECT_EQ(vertex5.getId(), 5);
+}
+
 
 // setNeighbor(int coneI, ThetaFourVertex* vertex)
 TEST(ThetaFourVertex, SetNeighborCorrectly){
@@ -81,7 +102,14 @@ TEST(ThetaFourVertex, CopyConstructorNoNeighbor){
     EXPECT_TRUE( copiedVertex.getNeighbor(0) == vertex.getNeighbor(1));
 }
 
-TEST(ThetaFourVertex, CopyConstructorWithNeighbor){
+TEST(ThetaFourVertex, getIntXGetIntY){
+    ThetaFourVertex vertex = ThetaFourVertex(10, 1);
+
+    EXPECT_TRUE(vertex.getIntX() == 10);
+    EXPECT_TRUE(vertex.getIntY() == 1);
+}
+
+TEST(ThetaFourVertex, CopyConstructorWithNeighbor1){
     ThetaFourVertex vertex = ThetaFourVertex(10, 1);
     ThetaFourVertex neightborVertex = ThetaFourVertex(30, 11);
     vertex.setNeighbor(0, &neightborVertex);
@@ -97,4 +125,35 @@ TEST(ThetaFourVertex, CopyConstructorWithNeighbor){
     EXPECT_TRUE(copiedVertex.getNeighbor(1) == vertex.getNeighbor(1));
     EXPECT_TRUE(copiedVertex.getNeighbor(2) == vertex.getNeighbor(2));
     EXPECT_TRUE(copiedVertex.getNeighbor(3) == vertex.getNeighbor(3));
+}
+
+TEST(ThetaFourVertex, DijkstraAlgorithmTest){
+       // Initialize the list of vertices
+    vector<ThetaFourVertex> vertices;
+
+    // Array of vertices coordinates with both negative and positive values
+    int verticesXY[10][2] = {
+        {1, 3},
+        {-4, 7},
+        {8, -2},
+        {3, 6},
+        {-7, 1},
+        {2, -8},
+        {-5, 9},
+        {9, -5},
+        {6, 4},
+        {-10, 11}
+    };
+
+    // Create ThetaFourVertex objects for each coordinate pair and add to vertices vector
+    for (int i = 0; i < 10; ++i) {
+        vertices.push_back(ThetaFourVertex(verticesXY[i][0], verticesXY[i][1]));
+    }
+
+    // Construct graph using the list of vertices
+    DirectedThetaFourGraph graph = DirectedThetaFourGraph(vertices);
+
+    DijkstraAlgorithm shortestAlgo; 
+
+    shortestAlgo.shortestPath(1,1,1,1, graph);
 }
