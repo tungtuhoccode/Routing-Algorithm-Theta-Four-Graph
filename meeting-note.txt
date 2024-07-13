@@ -1,11 +1,16 @@
 Done: 
 - Algorithm is Done
 - Graph is done
-
-Not done: 
-- Dijkstra Algorithm
+- Dijkstra Algorithm 
 - Algorithm does not give path weight yet
 - Constructing graph takes long (because of finding neighbors) 
     + O(n^2) 
     + When running, it takes 16s for 10000 vertices
-- May be some data visualization using D3.js
+
+Improvement: 
+- Improve on Algorithm runtime (may be using multithreading to save time)
+- Algorithm visulization
+
+Question: 
+- How will the data from this be used? 
+- How could I report the data? 

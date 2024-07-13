@@ -166,7 +166,7 @@ TEST(ThetaFourVertex, DijkstraAlgorithmInitialTest){
     // Construct graph using the list of vertices
     DirectedThetaFourGraph graph = DirectedThetaFourGraph(vertices);
 
-    DijkstraAlgorithm shortestAlgo; 
+    DijkstraAlgorithm dijkstra; 
 
-    cout << shortestAlgo.shortestPath(9,-5,-10,11, graph) << endl;
+    cout << dijkstra.shortestPath(1, 3, -10, 11, graph) << endl;
 }

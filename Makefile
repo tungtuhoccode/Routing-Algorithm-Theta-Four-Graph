@@ -76,10 +76,10 @@ objects := $(filter-out $(BuildDir)/main.o, $(patsubst $(SourceDir)/%.cc, $(Buil
 testerObjects := $(patsubst $(TestDir)/%.cc, $(BuildDir)/%.o, $(test_files))
 
 # Targets
-all: test
+all: test main
 
 main: $(objects) $(BuildDir)/main.o
-	$(compiler) -o $(BinDir)/main $(objects) $(BuildDir)/main.o
+	$(compiler) -o $(BinDir)/main $(objects) $(BuildDir)/main.o -g -L/opt/homebrew/lib -lprofiler
 
 test: $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects))
 	$(compiler) -o $(BinDir)/test $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects)) -lgtest -lgtest_main
@@ -95,10 +95,17 @@ $(BuildDir)/%.o: $(SourceDir)/%.cc $(IncludeDir)/%.h
 	$(compiler) -c $< -o $@
 
 $(BuildDir)/main.o: $(SourceDir)/main.cc
-	$(compiler) -c $< -o $@
+	$(compiler) -c $< -o $@ 
 
 $(BuildDir)/%.o: $(TestDir)/%.cc
 	$(compiler) -c $< -o $@
 
 clean:
 	rm -f $(BuildDir)/*.o $(BinDir)/main $(BinDir)/test
+
+# to create prof fle
+# CPUPROFILE=test.prof ./bin/main
+
+# To see analysis: 
+# 
+

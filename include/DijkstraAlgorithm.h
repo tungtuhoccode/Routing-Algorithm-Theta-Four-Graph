@@ -7,7 +7,7 @@
 class DijkstraAlgorithm{
     
     public: 
-        string shortestPath(int xs, int ys, int xt, int yt, DirectedThetaFourGraph& graph);
+        double shortestPath(int xs, int ys, int xt, int yt, DirectedThetaFourGraph& graph);
 
 };
 
