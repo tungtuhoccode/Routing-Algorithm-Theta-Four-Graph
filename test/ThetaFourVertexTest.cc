@@ -46,8 +46,6 @@ TEST(ThetaFourVertex, CopyConstructorCorrectID){
 
 
     EXPECT_EQ(vertex0.getId(), vertex1.getId());
-
-
 }
 
 

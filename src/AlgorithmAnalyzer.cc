@@ -25,7 +25,9 @@ vector<ThetaFourVertex> AlgorithmAnalyzer::generateListOfVertices(int numbVertic
     set<int> usedY;
 
     //seed for random number generator
-    srand(time(0));
+    //NOTE: This can be change to a constant to generate the same set of vertices
+    //For random, use time(0)
+    srand(123);
 
     //generate random vertices
     while (vertices.size() < numbVertices) {
@@ -39,7 +41,7 @@ vector<ThetaFourVertex> AlgorithmAnalyzer::generateListOfVertices(int numbVertic
         vertices.push_back(ThetaFourVertex(x, y));
 
         //log the generate vertices
-        cout << vertices[vertices.size()-1].print() << endl;
+        // cout << vertices[vertices.size()-1].print() << endl;
 
         //add x and y to the used list
         usedX.insert(x);

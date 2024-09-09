@@ -26,6 +26,7 @@ class ThetaFourVertex{
         bool equals(int x, int y);
         string print();
         double distanceTo(ThetaFourVertex& vertex);
+        double getDistanceToNeighbor(int coneI);
         int getId();
         static void resetID();
 
@@ -37,6 +38,7 @@ class ThetaFourVertex{
         optional<int> x; 
         optional<int> y; 
         ThetaFourVertex* neighbors[4];
+        double distanceToNeighbor[4];
         int id;
         static int currentID;
 };

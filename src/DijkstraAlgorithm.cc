@@ -55,6 +55,7 @@ double DijkstraAlgorithm::shortestPath(int xs, int ys, int xt, int yt, DirectedT
         minHeap.push(make_tuple(start, *currentNeighbor, weight));
     }
 
+    //Start the algorithm 
     while (!minHeap.empty()){
         Edge currentBestEdge = minHeap.top();
         minHeap.pop();
@@ -87,22 +88,25 @@ double DijkstraAlgorithm::shortestPath(int xs, int ys, int xt, int yt, DirectedT
         // break the queue
     }
 
-    //get the path
+    //Added the target
     ThetaFourVertex previousVertex = bestPreviousVertex[graph.getVertex(xt, yt)->getId()];
     string returnStr = graph.getVertex(xt, yt)->print();
     int countEdges = 1;
 
+    //Get the path by going backward through the list of vertices to the target
     while (previousVertex.getIntX() != xs && previousVertex.getIntY() != ys){
         returnStr = previousVertex.print() + " " + returnStr;
         previousVertex = bestPreviousVertex[previousVertex.getId()];
         countEdges++;
     }
 
+    //Added the source 
     returnStr = previousVertex.print() + " " + returnStr;
+    countEdges++;
     cout << "Number of edges using Dijkstra: " << countEdges << endl;
 
 
-    // cout << "Shortest Path Length to current Vertex: " << minPathWeightToVertex[graph.getVertex(xt, yt)->getId()] << endl;
+    cout << "Shortest Path Length to current Vertex: " << returnStr << endl;
 
     return minPathWeightToVertex[graph.getVertex(xt, yt)->getId()];
 }

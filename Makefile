@@ -65,6 +65,7 @@ SourceDir = ./src
 BuildDir = ./build
 IncludeDir = ./include
 BinDir = ./bin
+BenchmarkDir = ./benchmark
 
 # Compiler
 compiler = g++ -std=gnu++17
@@ -75,14 +76,23 @@ test_files := $(wildcard $(TestDir)/*.cc)
 objects := $(filter-out $(BuildDir)/main.o, $(patsubst $(SourceDir)/%.cc, $(BuildDir)/%.o, $(src_files)))
 testerObjects := $(patsubst $(TestDir)/%.cc, $(BuildDir)/%.o, $(test_files))
 
+benchmark_files := $(wildcard $(BenchmarkDir)/*.cc)
+benchmarkObjects := $(patsubst $(BenchmarkDir)/%.cc, $(BuildDir)/%.o, $(benchmark_files))
+
 # Targets
 all: test main
 
 main: $(objects) $(BuildDir)/main.o
-	$(compiler) -o $(BinDir)/main $(objects) $(BuildDir)/main.o -g -L/opt/homebrew/lib -lprofiler
+	$(compiler) -pthread -o $(BinDir)/main -O2 $(objects) $(BuildDir)/main.o
 
 test: $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects))
 	$(compiler) -o $(BinDir)/test $(objects) $(filter-out $(BuildDir)/main.o, $(testerObjects)) -lgtest -lgtest_main
+
+benchmark: $(objects) $(benchmarkObjects)
+	$(compiler) -o $(BinDir)/benchmark $(objects) $(benchmarkObjects) -lbenchmark -lpthread
+
+runBenchmark: benchmark
+	./bin/benchmark
 
 runMain: main
 	./bin/main
@@ -100,12 +110,8 @@ $(BuildDir)/main.o: $(SourceDir)/main.cc
 $(BuildDir)/%.o: $(TestDir)/%.cc
 	$(compiler) -c $< -o $@
 
+$(BuildDir)/%.o: $(BenchmarkDir)/%.cc
+	$(compiler) -c $< -o $@
+
 clean:
 	rm -f $(BuildDir)/*.o $(BinDir)/main $(BinDir)/test
-
-# to create prof fle
-# CPUPROFILE=test.prof ./bin/main
-
-# To see analysis: 
-# 
-

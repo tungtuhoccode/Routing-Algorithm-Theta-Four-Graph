@@ -24,6 +24,7 @@ ThetaFourVertex::ThetaFourVertex(int x, int y){
 }
 
 ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
+
     this->x = vertex.x;
     this->y = vertex.y;
 
@@ -31,7 +32,14 @@ ThetaFourVertex::ThetaFourVertex(const ThetaFourVertex& vertex){
 
     for(int i = 0; i < MAX_NEIGHBORS; i++){
         this->neighbors[i] = vertex.neighbors[i];
+        if(vertex.neighbors[i] != NULL){
+            distanceToNeighbor[i] = this->distanceTo(*(vertex.neighbors[i]));
+        }
     }
+}
+
+double ThetaFourVertex::getDistanceToNeighbor(int coneI){
+    return distanceToNeighbor[coneI];
 }
 
 void ThetaFourVertex::resetID(){
@@ -88,5 +96,5 @@ bool ThetaFourVertex::setNeighbor(int coneI, ThetaFourVertex* vertex){
 
 string ThetaFourVertex::print(){
     if (!(this->x.has_value()) || !(this->y.has_value())) throw std::logic_error("vertex is not set");
-    return  "(" + to_string(this->x.value()) + "," + to_string(this->y.value()) + ")";
+    return  "{" + to_string(this->x.value()) + "," + to_string(this->y.value()) + "},";
 }
