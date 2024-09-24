@@ -165,6 +165,7 @@ TEST(ThetaFourVertex, DijkstraAlgorithmInitialTest){
     DirectedThetaFourGraph graph = DirectedThetaFourGraph(vertices);
 
     DijkstraAlgorithm dijkstra; 
+    int countEdgeDijkstra = 0;
 
-    cout << dijkstra.shortestPath(1, 3, -10, 11, graph) << endl;
+    cout << dijkstra.shortestPath(1, 3, -10, 11, graph, &countEdgeDijkstra) << endl;
 }

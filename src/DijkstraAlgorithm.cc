@@ -20,7 +20,7 @@ public:
     } 
 }; 
 
-double DijkstraAlgorithm::shortestPath(int xs, int ys, int xt, int yt, DirectedThetaFourGraph& graph){
+double DijkstraAlgorithm::shortestPath(int xs, int ys, int xt, int yt, DirectedThetaFourGraph& graph, int *numberOfEdges){
     if(graph.getVertex(xs,ys) == NULL || graph.getVertex(xt,yt) == NULL ) return -1;
 
     vector<ThetaFourVertex> vertices = graph.getAllVertices();
@@ -101,12 +101,12 @@ double DijkstraAlgorithm::shortestPath(int xs, int ys, int xt, int yt, DirectedT
     }
 
     //Added the source 
-    returnStr = previousVertex.print() + " " + returnStr;
+    // returnStr = previousVertex.print() + " " + returnStr;
     countEdges++;
-    cout << "Number of edges using Dijkstra: " << countEdges << endl;
+    // cout << "Number of edges using Dijkstra: " << countEdges << endl;
 
 
-    cout << "Shortest Path Length to current Vertex: " << returnStr << endl;
-
+    // cout << "Shortest Path Length to current Vertex: " << returnStr << endl;
+    *numberOfEdges = countEdges;
     return minPathWeightToVertex[graph.getVertex(xt, yt)->getId()];
 }
